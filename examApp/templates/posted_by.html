@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posted By</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <h1>{{user.first_name}} {{user.last_name}}'s Quotes</h1>
+    <a style="margin-left:900px;" href=/registration button class="btn btn-primary">Logout</button>
+    <a href="/dashboard">Back</a>
+<style>
+    div {
+        border: 1px solid black;
+        width: 400px;
+    } 
+</style>
+    <div class='quotes'>
+        {% for post in user.user_quotes.all %}
+        <p>"{{post.quote}}"</p>
+        {% endfor %}
+    </div>  
+</body>
+</html>

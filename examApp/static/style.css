@@ -1,0 +1,17 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: arial;
+}
+
+.reg {
+    display: inline-block;
+    vertical-align:top;
+    margin-left: 50px;
+}
+
+.log {
+    display: inline-block;
+    vertical-align:top;
+    margin-left: 250px;
+}

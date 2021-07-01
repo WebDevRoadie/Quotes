@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+    <div id='wrapper'>
+        <a style="margin-left:900px;" href=/registration button class="btn btn-primary">Logout</button>
+        <a style="margin-left:850px;" href="/account/{{request.session.user_id}}">Edit My Account</a>
+        <h1>Welcome to {{ request.session.user_name }}'s Dashboard </h1>
+
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <div>
+            <style>
+                form {
+                margin-left: 780px;
+                }
+            </style>
+                <form action="/post_quote" method=POST>
+                    {% csrf_token %}
+                    <h3>Post a Quote</h3>
+                    Author <input type="text" name='author'>
+                    <p>
+                    <p>
+                    Quote <input type="text" name='quote'>
+                    <p>
+                    <p>
+                    <input type="submit" value="Post">
+                </form>
+        </div>
+        <style>
+        div #posts {
+            border: 1px solid black;
+            width: 500px;
+        } 
+        </style>
+        <div id='posts'>
+            {% for post in quote %}
+            <div class='one_post'>
+                <p class='author'>{{post.author}}</p>
+                <p class='post'>"{{post.quote}}"</p>
+                <p class='poster'>Posted By: <a href="/posted_by/{{post.poster.id}}">{{post.poster.first_name}} {{post.poster.last_name}}</a></p>
+                <p>{{ post.user_likes.count }} People Like This</p>
+                <a href="/like/{{post.id}}" button class="btn btn-primary">Like</a>
+                {% if post.poster.id == request.session.user_id %}
+                <a href="/delete/{{post.id}}">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
